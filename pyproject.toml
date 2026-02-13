@@ -1,0 +1,31 @@
+[project]
+name = "school-labels"
+version = "0.1.0"
+description = "PDF label generation tool for schools"
+authors = [{ name = "Tom Crouch", email = "t.crouch@outwood.com" }]
+requires-python = ">=3.13"
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = ["fpdf2"]
+
+[project.scripts]
+school-labels = "school_labels.cli:cli"
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = ["--import-mode=importlib"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.1",
+    "types-fpdf2>=2.8.4.20260130",
+]
