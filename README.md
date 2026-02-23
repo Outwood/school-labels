@@ -37,6 +37,15 @@ Generates labels showing student email and password credentials.
 
 Required CSV columns: `admin`, `last_name`, `first_name`, `group`, `email`, `password`
 
+### attendance
+
+Generates labels showing student attendance data with a colour-coded banner.
+
+Required CSV columns: `admin`, `first_name`, `last_name`, `group`, `attendance`, `trend`, `colour`
+
+- **attendance**: percentage value (e.g. `95.50%` or `95.50`)
+- **trend**: `up`, `down`, or `equal`
+- **colour**: attendance band — `platinum`, `gold`, `silver`, `bronze`, `purple`, `lilac`, `pink`, `blue`, `cyan`, `yellow`, `orange`, `red`, `green`, `teal`, `indigo`, `coral`, `amber`, `maroon`, `navy`, `lime`
 
 ## Development
 

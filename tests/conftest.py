@@ -11,6 +11,13 @@ EMAIL_CSV_ROWS = [
     "1003,Brown,Bob,7B,bob.brown@school.org,Pass9012",
 ]
 
+ATTENDANCE_CSV_HEADER = "admin,first_name,last_name,group,attendance,trend,colour"
+ATTENDANCE_CSV_ROWS = [
+    "1001,John,Smith,7A,95.50%,up,gold",
+    "1002,Jane,Jones,7A,88.00%,down,silver",
+    "1003,Bob,Brown,7B,72.30%,equal,bronze",
+]
+
 
 def _write_csv(path: Path, header: str, rows: list[str]) -> Path:
     path.write_text(header + "\n" + "\n".join(rows) + "\n")

@@ -7,6 +7,7 @@ from typing import Any, TextIO
 from fpdf import FPDF
 
 from .templates import (
+    AttendanceTemplate,
     EmailPasswordTemplate,
     LabelTemplate,
 )
@@ -15,6 +16,7 @@ TEMPLATES: dict[str, LabelTemplate] = {
     t.name: t
     for t in [
         EmailPasswordTemplate(),
+        AttendanceTemplate(),
     ]
 }
 

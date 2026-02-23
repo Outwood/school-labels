@@ -3,6 +3,7 @@
 from fpdf import FPDF
 
 from school_labels.templates import (
+    AttendanceTemplate,
     Avery7160Template,
     EmailPasswordTemplate,
     LabelTemplate,
@@ -165,3 +166,61 @@ class TestEmailPasswordTemplate:
         data = [row_a, row_b]
         pdf = self.template.create_pdf(data, break_column="group")
         assert pdf.pages_count == 2
+
+
+class TestAttendanceTemplate:
+    template = AttendanceTemplate()
+    _sample_row = {
+        "admin": "1001",
+        "first_name": "John",
+        "last_name": "Smith",
+        "group": "7A",
+        "attendance": "95.50%",
+        "trend": "up",
+        "colour": "gold",
+    }
+
+    def test_name(self):
+        assert self.template.name == "attendance"
+
+    def test_required_columns(self):
+        assert self.template.required_columns == [
+            "admin",
+            "first_name",
+            "last_name",
+            "group",
+            "attendance",
+            "trend",
+            "colour",
+        ]
+
+    def test_create_pdf_contains_name(self):
+        pdf = self.template.create_pdf([self._sample_row])
+        pdf.compress = False
+        output = pdf.output()
+        assert b"John Smith" in output
+
+    def test_create_pdf_contains_attendance(self):
+        pdf = self.template.create_pdf([self._sample_row])
+        pdf.compress = False
+        output = pdf.output()
+        assert b"95.50%" in output
+
+    def test_create_pdf_contains_trend(self):
+        pdf = self.template.create_pdf([self._sample_row])
+        pdf.compress = False
+        output = pdf.output()
+        assert b"Up from previous week" in output
+
+    def test_create_pdf_contains_colour_banner(self):
+        pdf = self.template.create_pdf([self._sample_row])
+        pdf.compress = False
+        output = pdf.output()
+        assert b"Gold attendance" in output
+
+    def test_create_pdf_empty_trend(self):
+        row = {**self._sample_row, "trend": ""}
+        pdf = self.template.create_pdf([row])
+        pdf.compress = False
+        output = pdf.output()
+        assert b"previous week" not in output
