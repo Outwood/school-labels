@@ -102,17 +102,19 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     try:
-        pdf = generator.generate_labels(data, template.name, break_column=args.break_column)
+        pdf_bytes = generator.generate_labels(
+            data, template.name, break_column=args.break_column
+        )
     except (ValueError, OSError) as e:
         sys.stderr.write(f"Error generating labels: {e}\n")
         return 1
 
     try:
         if args.output == "-":
-            sys.stdout.buffer.write(pdf.output())
+            sys.stdout.buffer.write(pdf_bytes)
         else:
             output_filename = generator.generate_filename(args.output)
-            pdf.output(output_filename)
+            Path(output_filename).write_bytes(pdf_bytes)
             if output_filename != args.output:
                 sys.stderr.write(
                     f"Output written to {output_filename} (original filename existed)\n"

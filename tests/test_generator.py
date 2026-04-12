@@ -87,9 +87,22 @@ class TestGenerateLabels:
         "password": "p",
     }
 
+    def test_returns_bytes(self):
+        result = generator.generate_labels([self._row], "email-password")
+        assert isinstance(result, bytes)
+        assert result[:5] == b"%PDF-"
+
     def test_unknown_style(self):
         with pytest.raises(ValueError, match="Unknown style"):
             generator.generate_labels([], "nonexistent")
+
+    def test_break_column(self):
+        row_a = {**self._row, "group": "7A"}
+        row_b = {**self._row, "group": "7B"}
+        result = generator.generate_labels(
+            [row_a, row_b], "email-password", break_column="group"
+        )
+        assert result[:5] == b"%PDF-"
 
 
 class TestGenerateFilename:

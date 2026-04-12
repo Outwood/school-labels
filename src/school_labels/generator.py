@@ -4,8 +4,6 @@ import csv
 from pathlib import Path
 from typing import Any, TextIO
 
-from fpdf import FPDF
-
 from .templates import (
     EmailPasswordTemplate,
     LabelTemplate,
@@ -57,11 +55,24 @@ def validate_columns(data: list[dict[str, Any]], template: LabelTemplate) -> lis
 
 def generate_labels(
     data: list[dict[str, Any]], style: str, *, break_column: str | None = None
-) -> FPDF:
-    """Generate labels using specified template style."""
+) -> bytes:
+    """Generate labels PDF and return as bytes.
+
+    Args:
+        data: List of row dicts, one per label.
+        style: Template name (e.g. ``"email-password"``). Must be a key in
+            :data:`TEMPLATES`.
+        break_column: Column name that triggers a page break on value change.
+
+    Returns:
+        Raw PDF bytes.
+
+    Raises:
+        ValueError: If ``style`` is not a recognised template name.
+    """
     template = TEMPLATES.get(style)
     if template is None:
         valid = list(TEMPLATES)
         msg = f"Unknown style {style!r}. Valid styles: {valid}"
         raise ValueError(msg)
-    return template.create_pdf(data, break_column)
+    return bytes(template.create_pdf(data, break_column).output())
