@@ -56,7 +56,12 @@ def validate_columns(data: list[dict[str, Any]], template: LabelTemplate) -> lis
 
 
 def generate_labels(
-    data: list[dict[str, Any]], template: LabelTemplate, *, break_column: str | None = None
+    data: list[dict[str, Any]], style: str, *, break_column: str | None = None
 ) -> FPDF:
-    """Generate labels using specified template."""
+    """Generate labels using specified template style."""
+    template = TEMPLATES.get(style)
+    if template is None:
+        valid = list(TEMPLATES)
+        msg = f"Unknown style {style!r}. Valid styles: {valid}"
+        raise ValueError(msg)
     return template.create_pdf(data, break_column)

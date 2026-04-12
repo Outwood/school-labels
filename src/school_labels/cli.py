@@ -102,7 +102,7 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     try:
-        pdf = generator.generate_labels(data, template, break_column=args.break_column)
+        pdf = generator.generate_labels(data, template.name, break_column=args.break_column)
     except (ValueError, OSError) as e:
         sys.stderr.write(f"Error generating labels: {e}\n")
         return 1

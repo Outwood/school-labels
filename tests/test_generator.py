@@ -2,6 +2,7 @@
 
 import io
 from pathlib import Path
+from typing import ClassVar
 
 import pytest
 
@@ -74,6 +75,21 @@ class TestValidateColumns:
     def test_empty_data(self):
         template = EmailPasswordTemplate()
         assert generator.validate_columns([], template) == []
+
+
+class TestGenerateLabels:
+    _row: ClassVar[dict[str, str]] = {
+        "admin": "1",
+        "last_name": "S",
+        "first_name": "J",
+        "group": "7A",
+        "email": "e@x",
+        "password": "p",
+    }
+
+    def test_unknown_style(self):
+        with pytest.raises(ValueError, match="Unknown style"):
+            generator.generate_labels([], "nonexistent")
 
 
 class TestGenerateFilename:
