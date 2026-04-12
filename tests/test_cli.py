@@ -62,6 +62,20 @@ class TestCli:
         assert result == 0
         assert Path(output).exists()
 
+    def test_attendance_with_file(self, attendance_csv_path, tmp_path):
+        output = str(tmp_path / "out.pdf")
+        result = main([str(attendance_csv_path), "-o", output])
+        assert result == 0
+        assert Path(output).exists()
+
+    def test_attendance_explicit_style(self, attendance_csv_path, tmp_path):
+        output = str(tmp_path / "out.pdf")
+        result = main(
+            [str(attendance_csv_path), "--style", "attendance", "-o", output]
+        )
+        assert result == 0
+        assert Path(output).exists()
+
     def test_filename_conflict_message(self, email_csv_path, tmp_path, capsys):
         output = tmp_path / "out.pdf"
         output.touch()

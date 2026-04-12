@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import TextIO
 
 from .templates import (
+    AttendanceTemplate,
     EmailPasswordTemplate,
     LabelTemplate,
 )
@@ -13,6 +14,7 @@ TEMPLATES: dict[str, LabelTemplate] = {
     t.name: t
     for t in [
         EmailPasswordTemplate(),
+        AttendanceTemplate(),
     ]
 }
 
