@@ -75,4 +75,8 @@ def generate_labels(
         valid = list(TEMPLATES)
         msg = f"Unknown style {style!r}. Valid styles: {valid}"
         raise ValueError(msg)
-    return bytes(template.create_pdf(data, break_column).output())
+    raw = template.create_pdf(data, break_column).output()
+    if raw is None:
+        msg = "FPDF.output() unexpectedly returned None"
+        raise RuntimeError(msg)
+    return bytes(raw)
