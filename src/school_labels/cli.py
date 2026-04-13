@@ -5,7 +5,6 @@ import csv
 import sys
 from importlib.metadata import version
 from pathlib import Path
-from typing import Any
 
 from . import generator
 from .templates import LabelTemplate
@@ -38,7 +37,7 @@ def create_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def _load_csv_data(args: argparse.Namespace) -> list[dict[str, Any]] | None:
+def _load_csv_data(args: argparse.Namespace) -> list[dict[str, str]] | None:
     """Read CSV data from file or stdin, returning None on error."""
     try:
         if args.input:
@@ -59,7 +58,7 @@ def _load_csv_data(args: argparse.Namespace) -> list[dict[str, Any]] | None:
 
 
 def _resolve_template(
-    args: argparse.Namespace, data: list[dict[str, Any]]
+    args: argparse.Namespace, data: list[dict[str, str]]
 ) -> LabelTemplate | None:
     """Determine template from args or auto-detect, returning None on error."""
     if args.style:

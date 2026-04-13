@@ -1,6 +1,6 @@
 """Email password labels template for Avery 7160."""
 
-from typing import Any, override
+from typing import override
 
 from fpdf import FPDF
 
@@ -30,7 +30,7 @@ class EmailPasswordTemplate(Avery7160Template):
 
     @override
     def _draw_label_content(
-        self, pdf: FPDF, x: float, y: float, data: dict[str, Any]
+        self, pdf: FPDF, x: float, y: float, data: dict[str, str]
     ) -> None:
         """Draw email and password labels."""
         full_width = self.LABEL_WIDTH - (2 * self.H_PADDING)

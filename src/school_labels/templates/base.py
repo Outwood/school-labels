@@ -1,7 +1,6 @@
 """Base template classes for label generation."""
 
 from abc import ABC, abstractmethod
-from typing import Any
 
 from fpdf import FPDF
 
@@ -26,7 +25,7 @@ class LabelTemplate(ABC):
 
     @abstractmethod
     def create_pdf(
-        self, data: list[dict[str, Any]], break_column: str | None = None
+        self, data: list[dict[str, str]], break_column: str | None = None
     ) -> FPDF:
         """Create PDF with labels."""
 

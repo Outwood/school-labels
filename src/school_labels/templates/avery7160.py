@@ -1,7 +1,7 @@
 """Base template for Avery 7160 label sheets."""
 
 from abc import ABC, abstractmethod
-from typing import Any, override
+from typing import override
 
 from fpdf import FPDF
 
@@ -46,13 +46,13 @@ class Avery7160Template(LabelTemplate, ABC):
 
     @abstractmethod
     def _draw_label_content(
-        self, pdf: FPDF, x: float, y: float, data: dict[str, Any]
+        self, pdf: FPDF, x: float, y: float, data: dict[str, str]
     ) -> None:
         """Draw content for a single label."""
 
     @override
     def create_pdf(
-        self, data: list[dict[str, Any]], break_column: str | None = None
+        self, data: list[dict[str, str]], break_column: str | None = None
     ) -> FPDF:
         """Create PDF with labels using Avery 7160 layout."""
         pdf = self._setup_pdf()

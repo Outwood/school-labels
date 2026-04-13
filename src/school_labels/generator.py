@@ -2,7 +2,7 @@
 
 import csv
 from pathlib import Path
-from typing import Any, TextIO
+from typing import TextIO
 
 from .templates import (
     EmailPasswordTemplate,
@@ -39,13 +39,13 @@ def generate_filename(base_filename: str, max_attempts: int = 1000) -> str:
     raise RuntimeError(msg)
 
 
-def read_csv_data(input_file: TextIO) -> list[dict[str, Any]]:
+def read_csv_data(input_file: TextIO) -> list[dict[str, str]]:
     """Read CSV data from file or stdin."""
     reader = csv.DictReader(input_file)
     return list(reader)
 
 
-def validate_columns(data: list[dict[str, Any]], template: LabelTemplate) -> list[str]:
+def validate_columns(data: list[dict[str, str]], template: LabelTemplate) -> list[str]:
     """Check that required columns are present. Returns list of missing columns."""
     if not data:
         return []
@@ -54,7 +54,7 @@ def validate_columns(data: list[dict[str, Any]], template: LabelTemplate) -> lis
 
 
 def generate_labels(
-    data: list[dict[str, Any]], style: str, *, break_column: str | None = None
+    data: list[dict[str, str]], style: str, *, break_column: str | None = None
 ) -> bytes:
     """Generate labels PDF and return as bytes.
 
