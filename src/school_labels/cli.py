@@ -43,6 +43,9 @@ def _load_csv_data(args: argparse.Namespace) -> list[dict[str, str]] | None:
         if args.input:
             with Path(args.input).open(newline="") as f:
                 data = generator.read_csv_data(f)
+        elif sys.stdin.isatty():
+            sys.stderr.write("Error: input file required (or pipe CSV to stdin).\n")
+            return None
         else:
             data = generator.read_csv_data(sys.stdin)
     except FileNotFoundError:
