@@ -217,7 +217,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "fpdf2" }]
+requires-dist = [{ name = "fpdf2", specifier = ">=2.7.0" }]
 
 [package.metadata.requires-dev]
 dev = [

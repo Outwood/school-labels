@@ -13,7 +13,7 @@ classifiers = [
     "Topic :: Education",
     "Topic :: Office/Business",
 ]
-dependencies = ["fpdf2"]
+dependencies = ["fpdf2>=2.7.0"]
 
 [project.urls]
 Repository = "https://github.com/outwood/school-labels/"
