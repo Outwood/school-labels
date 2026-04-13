@@ -96,6 +96,10 @@ class TestGenerateLabels:
         with pytest.raises(ValueError, match="Unknown style"):
             generator.generate_labels([], "nonexistent")
 
+    def test_missing_columns(self):
+        with pytest.raises(ValueError, match="missing required columns"):
+            generator.generate_labels([{"admin": "1"}], "email-password")
+
     def test_break_column(self):
         row_a = {**self._row, "group": "7A"}
         row_b = {**self._row, "group": "7B"}

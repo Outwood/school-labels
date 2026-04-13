@@ -75,6 +75,10 @@ def generate_labels(
         valid = list(TEMPLATES)
         msg = f"Unknown style {style!r}. Valid styles: {valid}"
         raise ValueError(msg)
+    missing = validate_columns(data, template)
+    if missing:
+        msg = f"CSV is missing required columns: {', '.join(missing)}"
+        raise ValueError(msg)
     raw = template.create_pdf(data, break_column).output()
     if raw is None:
         msg = "FPDF.output() unexpectedly returned None"
