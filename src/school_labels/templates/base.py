@@ -38,6 +38,8 @@ class LabelTemplate(ABC):
             return text
         ellipsis = "..."
         ellipsis_width = pdf.get_string_width(ellipsis)
+        if ellipsis_width >= max_width:
+            return ""
         cut = int(len(text) * (max_width - ellipsis_width) / text_width)
         text = text[:cut]
         while text and pdf.get_string_width(text + ellipsis) > max_width:

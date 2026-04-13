@@ -27,6 +27,14 @@ class TestLabelTemplateTextHelpers:
         assert len(result) < len(long_name)
         assert pdf.get_string_width(result) <= 30.0
 
+    def test_fit_text_narrower_than_ellipsis(self):
+        pdf = FPDF()
+        pdf.add_page()
+        pdf.set_font("Helvetica", "", 11)
+        # max_width smaller than the width of "..." itself
+        result = LabelTemplate._fit_text(pdf, "Hello", 1.0)
+        assert pdf.get_string_width(result) <= 1.0
+
     def test_shrink_text_short(self):
         pdf = FPDF()
         pdf.add_page()
