@@ -4,8 +4,11 @@ test *args:
 lint:
     uv run ruff check --fix
 
+typecheck:
+    uv run ty check
+
 format:
     uv run ruff check --select I --fix
     uv run ruff format
 
-check: lint test
+check: lint typecheck test
