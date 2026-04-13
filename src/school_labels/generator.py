@@ -68,7 +68,8 @@ def generate_labels(
         Raw PDF bytes.
 
     Raises:
-        ValueError: If ``style`` is not a recognised template name.
+        ValueError: If ``style`` is not a recognised template name, required
+            columns are missing, or ``break_column`` is not present in the CSV.
     """
     template = TEMPLATES.get(style)
     if template is None:
@@ -78,6 +79,13 @@ def generate_labels(
     missing = validate_columns(data, template)
     if missing:
         msg = f"CSV is missing required columns: {', '.join(missing)}"
+        raise ValueError(msg)
+    if break_column and data and break_column not in data[0]:
+        present = list(data[0].keys())
+        msg = (
+            f"Break column {break_column!r} not found in CSV. "
+            f"Available columns: {present}"
+        )
         raise ValueError(msg)
     raw = template.create_pdf(data, break_column).output()
     if raw is None:
