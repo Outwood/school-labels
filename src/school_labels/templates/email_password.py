@@ -12,6 +12,7 @@ class EmailPasswordTemplate(Avery7160Template):
 
     H_PADDING: float = 2.8
     V_PADDING: float = 4.2
+    CREDENTIAL_LABEL: str = "Password"
 
     @property
     @override
@@ -98,7 +99,7 @@ class EmailPasswordTemplate(Avery7160Template):
         # Password label
         pdf.set_font("Helvetica", "", 7)
         pdf.set_xy(content_x, current_y)
-        pdf.cell(full_width, 2.8, "Password")
+        pdf.cell(full_width, 2.8, self.CREDENTIAL_LABEL)
 
         # Move down for password value
         current_y += 3.2  # 9pt ≈ 3.2mm

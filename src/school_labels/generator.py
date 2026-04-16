@@ -6,6 +6,7 @@ from typing import TextIO
 
 from .templates import (
     EmailPasswordTemplate,
+    InitialPasswordTemplate,
     LabelTemplate,
 )
 
@@ -13,6 +14,7 @@ TEMPLATES: dict[str, LabelTemplate] = {
     t.name: t
     for t in [
         EmailPasswordTemplate(),
+        InitialPasswordTemplate(),
     ]
 }
 
