@@ -1,0 +1,10 @@
+.pytest_cache
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+
+.venv
+
+.env

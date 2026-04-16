@@ -1,0 +1,63 @@
+[project]
+name = "school-labels"
+version = "0.1.0"
+description = "PDF label generation tool for schools"
+authors = [{ name = "Tom Crouch", email = "t.crouch@outwood.com" }]
+requires-python = ">=3.13"
+readme = "README.md"
+license = { text = "MIT" }
+classifiers = [
+    "Environment :: Console",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Topic :: Education",
+    "Topic :: Office/Business",
+]
+dependencies = ["fpdf2>=2.7.0"]
+
+[project.urls]
+Repository = "https://github.com/outwood/school-labels/"
+
+[project.scripts]
+school-labels = "school_labels.cli:cli"
+
+[build-system]
+requires = ["uv_build<0.11"]
+build-backend = "uv_build"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff]
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+pydocstyle.convention = "google"
+ignore = [
+    # Formatter-owned rules
+    "COM812",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = [
+    "S101",    # assert is expected in tests
+    "ARG002",
+    "ANN",
+    "D",
+    "PLR0913",
+    "PLR2004",
+    "SLF001",  # tests legitimately access private methods
+]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+addopts = ["--import-mode=importlib"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.15.1",
+    "ty>=0.0.29",
+]
