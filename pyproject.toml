@@ -38,6 +38,8 @@ pydocstyle.convention = "google"
 ignore = [
     # Formatter-owned rules
     "COM812",
+    # Project does not use per-file copyright headers
+    "CPY",
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -58,6 +60,6 @@ addopts = ["--import-mode=importlib"]
 [dependency-groups]
 dev = [
     "pytest>=9.0.2",
-    "ruff>=0.15.1",
-    "ty>=0.0.29",
+    "ruff>=0.16.4",
+    "ty>=0.0.74",
 ]
